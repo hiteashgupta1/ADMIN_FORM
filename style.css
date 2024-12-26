@@ -23,6 +23,7 @@ h1 {
 }
 .form-group {
     margin-bottom: 15px;
+    font-weight: bold;
 }
 .form-group label {
     display: block;
@@ -44,6 +45,7 @@ h1 {
 }
 .photo-upload {
     text-align: right;
+    font-weight: bold;
 }
 .photo-upload img {
     width: 100px;

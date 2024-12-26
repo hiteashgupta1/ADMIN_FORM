@@ -39,8 +39,8 @@ h1 {
 }
 .form-row {
     display: flex;
+    font-size: 50px;
     justify-content: space-between;
-    display: block;
     font-weight: bold;
 }
 .form-row .form-group {
@@ -52,7 +52,7 @@ h1 {
     margin-bottom: 5px;
     text-align: right;
     font-weight: bold;
-    width: 50px;
+    width: 100px;
     height: 80px;
     display: block;
     border: 1px solid black;

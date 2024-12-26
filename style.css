@@ -41,13 +41,13 @@ h1 {
     display: flex;
     justify-content: space-between;
     font-weight: bold;
+    font-size: 20px;
 }
 .form-row .form-group {
     width: 48%;
 }
 .photo-upload { 
     position: absolute;
-    right: 0;
     margin: auto;
     text-align: right;
     font-weight: bold;

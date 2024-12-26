@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admission Form - University Institute of Engineering and Technology</title>
     <link rel="stylesheet" href="./style.css">
-
 </head>
 <body>
     <h1>Admission Form</h1>
@@ -56,18 +55,73 @@
                     <option value="B.Tech">B.Tech</option>
                 </select>
                 <br><br>
-                <label for="course">Select a branch:</label>
-                <select name="" id="course">
+                <label for="branch">Select a branch:</label>
+                <select id="branch" name="branch" required>
                     <option value="">Select a Branch </option>
                     <option value="cse">Computer Science And Engineering</option>
                     <option value="civil">Civil Engineering</option>
                 </select>
             </div>
+
+            <!-- Academic Details -->
+            <h3>Academic Details</h3>
+            <div class="form-group">
+                <label for="board10">10th Board Name:</label>
+                <input type="text" id="board10" name="board10" required>
+            </div>
+            <div class="form-group">
+                <label for="marks10">10th Marks (%):</label>
+                <input type="number" id="marks10" name="marks10" required>
+            </div>
+            <div class="form-group">
+                <label for="board12">12th Board Name:</label>
+                <input type="text" id="board12" name="board12" required>
+            </div>
+            <div class="form-group">
+                <label for="marks12">12th Marks (%):</label>
+                <input type="number" id="marks12" name="marks12" required>
+            </div>
+            <div class="form-group">
+                <label for="physics-marks">Physics Marks:</label>
+                <input type="number" id="physics-marks" name="physics-marks" required>
+            </div>
+            <div class="form-group">
+                <label for="chemistry-marks">Chemistry Marks:</label>
+                <input type="number" id="chemistry-marks" name="chemistry-marks" required>
+            </div>
+            <div class="form-group">
+                <label for="maths-marks">Mathematics Marks:</label>
+                <input type="number" id="maths-marks" name="maths-marks" required>
+            </div>
+            <div class="form-group">
+                <label for="jee-score">JEE Main Score:</label>
+                <input type="number" id="jee-score" name="jee-score">
+            </div>
+            <div class="form-group">
+                <label for="cuet-score">CUET (UG) Score:</label>
+                <input type="number" id="cuet-score" name="cuet-score">
+            </div>
+
+            <!-- Additional Documents -->
+            <h3>Additional Details</h3>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select id="category" name="category">
+                    <option value="general">General</option>
+                    <option value="sc">SC</option>
+                    <option value="st">ST</option>
+                    <option value="obc">OBC</option>
+                    <option value="ews">EWS</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fee-receipt">Upload Fee Receipt:</label>
+                <input type="file" id="fee-receipt" accept=".pdf,.jpg,.png">
+            </div>
+
+            <!-- Submission -->
             <div class="submit-button">
                 <button type="submit">Submit</button>
-            </div>
-            <div class="download-link">
-                <a href="#" onclick="alert('PDF download functionality to be implemented.')">Download Fee Receipt (PDF)</a>
             </div>
         </form>
     </div>

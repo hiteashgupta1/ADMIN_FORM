@@ -40,8 +40,8 @@ h1 {
 .form-row {
     display: flex;
     justify-content: space-between;
+    display: block;
     font-weight: bold;
-    font-size: 20px;
 }
 .form-row .form-group {
     width: 48%;
@@ -49,10 +49,12 @@ h1 {
 .photo-upload { 
     position: absolute;
     margin: auto;
+    margin-bottom: 5px;
     text-align: right;
     font-weight: bold;
-    min-width: 50px;
+    width: 50px;
     height: 80px;
+    display: block;
     border: 1px solid black;
 }
 .photo-upload img {

@@ -46,6 +46,9 @@ h1 {
 .photo-upload {
     text-align: right;
     font-weight: bold;
+    width: 25px;
+    height: 15px;
+    border: 2px solid black;
 }
 .photo-upload img {
     width: 100px;

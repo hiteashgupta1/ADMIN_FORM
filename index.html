@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admission Form - University Institute of Engineering and Technology</title>
-    <link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
     <div class="form-container">
+        <!-- Header Section -->
         <div class="form-header">
             <h2>University Institute Of Engineering And Technology</h2>
             <h2>University Of Jammu</h2>
         </div>
 
+        <!-- Form Section -->
         <form id="admission-form" enctype="multipart/form-data">
-            <!-- Uploads -->
-            
-            <div class="form-group">
+            <!-- Photo Upload Section -->
+            <div class="form-group photo-upload">
+                <div id="photo-preview"></div>
                 <label for="photo">Upload Photo:</label>
-                <input type="file" id="photo" name="photo" accept="image/*" required>
+                <input type="file" id="photo" name="photo" accept="image/*" onchange="previewPhoto(event)">
             </div>
 
+            <!-- Student Name Section -->
             <div class="form-group">
                 <label for="name">Student Name:</label>
                 <input type="text" id="name" name="name" required>
             </div>
+
+            <!-- Parent Information Section -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="father-name">Father's Name:</label>
@@ -36,6 +42,9 @@
                     <input type="text" id="mother-name" name="mother-name" required>
                 </div>
             </div>
+
+            <!-- Additional Fields (Kept as they were) -->
+            <!-- More sections like date of birth, phone, email, etc. -->
             <div class="form-group">
                 <label for="dob">Date of Birth:</label>
                 <input type="date" id="dob" name="dob" required>
@@ -121,7 +130,8 @@
                 <input type="file" id="receipt" name="receipt" accept="application/pdf, image/*" required>
             </div>
 
-            <!-- Submission -->
+
+
             <div class="submit-button">
                 <button type="submit">Submit</button>
             </div>
@@ -129,6 +139,19 @@
     </div>
 
     <script>
+        function previewPhoto(event) {
+            const photoPreview = document.getElementById("photo-preview");
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    photoPreview.style.backgroundImage = `url(${e.target.result})`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
         document.getElementById("admission-form").addEventListener("submit", async function (event) {
             event.preventDefault(); // Prevent default form submission
 
@@ -151,17 +174,11 @@
                 alert(result.message);
             } catch (error) {
                 console.error("Error submitting the form:", error);
-                let errorMessage;
-                if (error.name === "TypeError") {
-                    errorMessage = "There was a problem with the network request.";
-                } else if (error.message.includes("Network response was not ok")) {
-                    errorMessage = "Server responded with an error: " + error.message;
-                } else {
-                    errorMessage = "An unknown error occurred: " + error.message;
-                }
-                alert(`Error submitting the form: ${errorMessage}`);
+                alert(`Error submitting the form: ${error.message}`);
             }
         });
     </script>
 </body>
+
 </html>
+

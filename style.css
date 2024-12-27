@@ -40,7 +40,6 @@ h1 {
 .form-row {
     display: block;
     font-size: 40px;
-    justify-content: space-between;
     font-weight: bold;
 }
 .form-row .form-group {

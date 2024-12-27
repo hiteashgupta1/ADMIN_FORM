@@ -3,10 +3,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 20px;
     background-color: #f9f9f9;
-    background-image: url('uiettn.png')
+    background-image: url('uiettn.png');
 }
 .form-container {
-    max-width: 675px;
+    max-width: 600px;
     margin: auto;
     padding: 20px;
     background-color: #fcb09a;
@@ -29,7 +29,7 @@ h1 {
 }
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin: auto;
     font-weight: bold;
 }
 .form-group input, .form-group select {
@@ -69,7 +69,6 @@ h1 {
     text-align: center;
     background-colour: black;
     font-weight: bold;
-    color: white;
 }
     
 .submit-button {

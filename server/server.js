@@ -129,48 +129,59 @@ mongoose.connection.once("open", () => {
 
 
 
-// Function to show the modal
-function showModal(message) {
-    var modal = document.getElementById("myModal");
-    var modalMessage = document.getElementById("modalMessage");
-
-
-
-    // Set the message in the modal
-    modalMessage.textContent = message;
-
-    // Show the modal
-    modal.style.display = "block";
-
-    // Add event listener to close the modal when the close button is clicked
-    var closeButton = document.getElementsByClassName("close")[0];
-    closeButton.addEventListener("click", function() {
-      modal.style.display = "none";
-    });
-  }
-
   // Add event listener to the form submission
-  document.getElementById("myForm").addEventListener("submit", function(event) {
+  document.getElementById("admission-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    // Show the modal immediately to indicate form submission is in progress
-    showModal("Submitting form...");
 
-    // Perform an AJAX request to submit the form
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", this.action);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          // Successful response
-          var response = xhr.responseText;
-          showModal(response); // Show the modal with the response message
-          document.getElementById("myForm").reset(); //Clear the form fields
-        } else {
-          // Error response
-          showModal("Error: Something went wrong."); // Show a generic error message
+       const scriptURL =                       
+        "https://script.google.com/macros/s/AKfycbw9Y_isjPbf2laH21Hu01H-e1qXN7sxR4L6u6CeDaIvJ2Fpo8HUxAZpT3l4brnZOopj/exec";
+        const form = document.forms["submit-to-google-sheet"];
+        const fileInput = document.getElementById("media");
+
+     // Handle the file upload
+                const fileInput = document.getElementById("media");
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+
+                    // Size validation here, only less than 2MB allowed
+                    if (file.size > 1024 * 1024 * 2) {
+                        swal("Error", "File size should be less than 2MB.", "error");
+                        return;
+                    }
+
+                    reader.onload = async function () {
+                        formData.append("media", reader.result.split(",")[1]); // Append base64 data
+                        await submitForm(formData);
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    // No file uploaded
+                    await submitForm(formData);
+                }
+                });
+
+        async function submitForm(formData) {
+            // Get the submit button and change its text to "Loading..."
+            const submitButton = document.querySelector("button[type='submit']");
+            submitButton.disabled = true;
+            submitButton.innerText = "Loading...";
+
+            // Submit the form data to the Google Sheet
+            fetch(scriptURL, { method: "POST", body: formData })
+                .then((response) => {
+                    swal("Done", "Submitted Successfully.", "success");
+                    form.reset();
+                })
+                .catch((error) => {
+                    swal("Error", "Something went wrong. Please try again!", "error");
+                })
+                .finally(() => {
+                    // Reset the submit button back to "Submit"
+                    submitButton.disabled = false;
+                    submitButton.innerText = "Submit";
+                });
         }
-      }
-    };
-    xhr.send(new FormData(this));
-  });
+}

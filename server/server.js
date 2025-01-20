@@ -144,7 +144,7 @@ const form = document.getElementById("admission-form");
 
       try {
         // Send data to Google Apps Script
-        const response = await fetch("https://script.google.com/macros/s/AKfycbxs2J9wAoWE3x1GvDuYGRXvj6wCTo9qnQxlkLKwcYvYJ2cgsvnPZg25734USzMJNpFW/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbx8mRTLArhYDxcOcD-ElQcCARPgV7mm17LxT-qg1uRfWNREnM8JVHK9ZFP33-q5mnBL/exec"), {
           method: "POST",
           body: JSON.stringify(json),
         });

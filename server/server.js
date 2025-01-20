@@ -126,62 +126,36 @@ mongoose.connection.once("open", () => {
 });
 */
 
+const form = document.getElementById("admission-form");
 
-
-
-  // Add event listener to the form submission
-  document.getElementById("admission-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-
-       const scriptURL =                       
-        "https://script.google.com/macros/s/AKfycbw9Y_isjPbf2laH21Hu01H-e1qXN7sxR4L6u6CeDaIvJ2Fpo8HUxAZpT3l4brnZOopj/exec";
-        const form = document.forms["submit-to-google-sheet"];
-        const fileInput = document.getElementById("media");
-
-     // Handle the file upload
-                const fileInput = document.getElementById("media");
-                if (fileInput.files.length > 0) {
-                    const file = fileInput.files[0];
-                    const reader = new FileReader();
-
-                    // Size validation here, only less than 2MB allowed
-                    if (file.size > 1024 * 1024 * 2) {
-                        swal("Error", "File size should be less than 2MB.", "error");
-                        return;
-                    }
-
-                    reader.onload = async function () {
-                        formData.append("media", reader.result.split(",")[1]); // Append base64 data
-                        await submitForm(formData);
-                    };
-
-                    reader.readAsDataURL(file);
-                } else {
-                    // No file uploaded
-                    await submitForm(formData);
-                }
-                });
-
-        async function submitForm(formData) {
-            // Get the submit button and change its text to "Loading..."
-            const submitButton = document.querySelector("button[type='submit']");
-            submitButton.disabled = true;
-            submitButton.innerText = "Loading...";
-
-            // Submit the form data to the Google Sheet
-            fetch(scriptURL, { method: "POST", body: formData })
-                .then((response) => {
-                    swal("Done", "Submitted Successfully.", "success");
-                    form.reset();
-                })
-                .catch((error) => {
-                    swal("Error", "Something went wrong. Please try again!", "error");
-                })
-                .finally(() => {
-                    // Reset the submit button back to "Submit"
-                    submitButton.disabled = false;
-                    submitButton.innerText = "Submit";
-                });
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      
+      // Convert form data to JSON
+      const json = {};
+      formData.forEach((value, key) => {
+        if (value instanceof File) {
+          json[key] = value.name; // Store file names in the sheet
+        } else {
+          json[key] = value;
         }
-}
+      });
+
+      try {
+        // Send data to Google Apps Script
+        const response = await fetch("https://script.google.com/macros/s/AKfycbxs2J9wAoWE3x1GvDuYGRXvj6wCTo9qnQxlkLKwcYvYJ2cgsvnPZg25734USzMJNpFW/exec", {
+          method: "POST",
+          body: JSON.stringify(json),
+        });
+        if (response.ok) {
+          alert("Form submitted successfully!");
+        } else {
+          alert("Error submitting form.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Submission failed.");
+      }
+    });
+

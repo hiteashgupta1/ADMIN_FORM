@@ -128,81 +128,41 @@
         </form>
     </div>
     <script>
-        /*
-        document.getElementById("admission-form").addEventListener("submit", async function (event) {
-            event.preventDefault(); // Prevent default form submissionm
-       
-            // Create a FormData object to store form data including files
-            const formData = new FormData(event.target);
-
-            try {
-                const response = await fetch("http://localhost:3000/submit-admission", {
-                    method: "POST",
-                    body: formData, // Send FormData directly
-                });
-
-                if (!response.ok) {
-                    const errorDetail = await response.text();
-                    throw new Error(`Network response was not ok: ${response.statusText}. Details: ${errorDetail}`);
-                }
-
-                const result = await response.json();
-                console.log(result);
-                alert(result.message);
-            } catch (error) {
-                console.error("Error submitting the form:", error);
-                let errorMessage;
-                if (error.name === "TypeError") {
-                    errorMessage = "There was a problem with the network request.";
-                } else if (error.message.includes("Network response was not ok")) {
-                    errorMessage = "Server responded with an error: " + error.message;
-                } else {
-                    errorMessage = "An unknown error occurred: " + error.message;
-                }
-                alert(`Error submitting the form: ${errorMessage}`);
-            }
-        });
-       */
-
         const form = document.getElementById("admission-form");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      
-      // Convert form data to JSON
-      const json = {};
-      formData.forEach((value, key) => {
-        if (value instanceof File) {
-          json[key] = value.name; // Store file names in the sheet
-        } else {
-          json[key] = value;
-        }
-      });
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            
+            // Convert form data to JSON
+            const json = {};
+            formData.forEach((value, key) => {
+                if (value instanceof File) {
+                    json[key] = value.name; // Store file names in the sheet
+                } else {
+                    json[key] = value;
+                }
+            });
 
-      try {
-        // Send data to Google Apps Script
-        const response = await fetch("https://script.google.com/macros/s/AKfycbxuc2DQNz0Ij1EBEmRg-tv3dNB8A4TIF7QvuyjfdEdN1xjuaATHOu4rzPLbhCPiNccK/exec"), {
-          method: "POST",
-          body: JSON.stringify(json),
+            try {
+                // Send data to Google Apps Script
+                const response = await fetch("https://script.google.com/macros/s/AKfycbxuc2DQNz0Ij1EBEmRg-tv3dNB8A4TIF7QvuyjfdEdN1xjuaATHOu4rzPLbhCPiNccK/exec", {
+                    method: "POST",
+                    body: JSON.stringify(json),
+                });
+                if (response.ok) {
+                    alert("Form submitted successfully!");
+                } else {
+                    alert("Error submitting form.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Submission failed.");
+            }
         });
-        if (response.ok) {
-          alert("Form submitted successfully!");
-        } else {
-          alert("Error submitting form.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("Submission failed.");
-      }
-    });
-
-    
     </script>
 
-        
-    
-    <footer class ="footer">
+    <footer class="footer">
         &copy; 2024 UIET Kathua
     </footer>
 </body>
